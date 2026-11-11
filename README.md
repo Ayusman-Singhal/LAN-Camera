@@ -1,5 +1,10 @@
 # LAN Camera
 
+[![CI](https://github.com/Ayusman-Singhal/LAN-Camera/actions/workflows/ci.yml/badge.svg)](https://github.com/Ayusman-Singhal/LAN-Camera/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Platform](https://img.shields.io/badge/platform-Windows-blue)
+![Privacy](https://img.shields.io/badge/cloud-none-success)
+
 Use your Android phone's camera as a live, private video feed on this PC,
 and record it on the PC. Works over your local network only: no internet, no
 cloud, no mobile data needed. The PC side is a small Node server plus a

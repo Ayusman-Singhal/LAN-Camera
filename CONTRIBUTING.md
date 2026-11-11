@@ -29,7 +29,7 @@ are especially welcome.
 PC server:
 
 ```
-git clone https://github.com/YOUR_USERNAME/lan-camera
+git clone https://github.com/Ayusman-Singhal/LAN-Camera
 cd lan-camera
 npm install
 npm run check   # syntax-checks all server-side JS

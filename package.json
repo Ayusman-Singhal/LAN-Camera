@@ -27,12 +27,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_USERNAME/lan-camera.git"
+    "url": "git+https://github.com/Ayusman-Singhal/LAN-Camera.git"
   },
   "bugs": {
-    "url": "https://github.com/YOUR_USERNAME/lan-camera/issues"
+    "url": "https://github.com/Ayusman-Singhal/LAN-Camera/issues"
   },
-  "homepage": "https://github.com/YOUR_USERNAME/lan-camera#readme",
+  "homepage": "https://github.com/Ayusman-Singhal/LAN-Camera#readme",
   "dependencies": {
     "node-forge": "^1.4.3",
     "qrcode": "^1.5.4",
