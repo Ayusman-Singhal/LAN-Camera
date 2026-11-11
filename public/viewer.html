@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>LAN Camera</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="viewer">
+  <!-- Icon set (inline, works offline). -->
+  <svg width="0" height="0" class="sprite" aria-hidden="true">
+    <defs>
+      <symbol id="i-cam" viewBox="0 0 24 24"><path d="M15.5 9.5 20 7v10l-4.5-2.5"/><rect x="3" y="6" width="12.5" height="12" rx="2.5"/></symbol>
+      <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/></symbol>
+      <symbol id="i-flip" viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 13.7-5.7L20 8.5M20 4v4.5h-4.5M20 12a8 8 0 0 1-13.7 5.7L4 15.5M4 20v-4.5h4.5"/></symbol>
+      <symbol id="i-torch" viewBox="0 0 24 24"><path d="M13 2.5 5.5 13.5h6l-1 8 7.5-11h-6z"/></symbol>
+      <symbol id="i-rec" viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/></symbol>
+      <symbol id="i-mirror" viewBox="0 0 24 24"><path d="M12 3v18M9 7 4 17h5zM15 7l5 10h-5z"/></symbol>
+      <symbol id="i-rotate" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 1-2.3-5.7L20 7.5M20 3v4.5h-4.5"/></symbol>
+      <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
+      <symbol id="i-slash" viewBox="0 0 24 24"><path d="M4 4l16 16"/></symbol>
+      <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 1.5h-15zM10 20.5a2 2 0 0 0 4 0"/></symbol>
+      <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+      <symbol id="i-qr" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><path d="M14 14h2v2h-2zM18 18h2v2h-2zM14 18h2M18 14h2"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.5 7.5a2 2 0 0 1 2-2h4l2 2.5h7a2 2 0 0 1 2 2v7.5a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/></symbol>
+      <symbol id="i-wait" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark"><svg><use href="#i-cam"/></svg></span>
+      <span class="brand-name">LAN Camera</span>
+    </div>
+    <span id="status" class="pill">Connecting…</span>
+    <span id="phoneInfo" class="chip-text"></span>
+    <span class="grow"></span>
+    <span id="recPill" class="pill rec" hidden><span class="rec-dot"></span>REC</span>
+    <span class="local-note" title="Video never leaves your local network">
+      <svg class="ico-sm"><use href="#i-shield"/></svg>Local only
+    </span>
+  </header>
+
+  <main class="layout">
+    <section id="stage" class="stage">
+      <video id="video" autoplay muted playsinline disableremoteplayback></video>
+      <canvas id="canvas" hidden></canvas>
+
+      <div id="overlay" class="overlay">
+        <div class="empty">
+          <svg class="empty-ico"><use href="#i-wait"/></svg>
+          <p id="overlayText">Waiting for phone…</p>
+        </div>
+      </div>
+
+      <div class="hud">
+        <span id="liveBadge" class="badge-live" hidden><span class="live-dot"></span>LIVE</span>
+        <span id="stats" class="stats">No video.</span>
+      </div>
+
+      <div id="dock" class="dock" role="toolbar" aria-label="Camera controls">
+        <button id="camPowerBtn" class="dock-btn toggle crit on" title="Camera on/off (C)">
+          <span class="ico"><svg><use href="#i-cam"/></svg><svg class="slash"><use href="#i-slash"/></svg></span>
+          <span class="lbl">Camera</span>
+        </button>
+        <button id="micBtn" class="dock-btn toggle crit app-only" hidden disabled title="Phone microphone">
+          <span class="ico"><svg><use href="#i-mic"/></svg><svg class="slash"><use href="#i-slash"/></svg></span>
+          <span class="lbl">Mic</span>
+        </button>
+        <button id="soundBtn" class="dock-btn toggle app-only" hidden title="Play phone sound on this PC (S)">
+          <span class="ico"><svg><use href="#i-sound"/></svg><svg class="slash"><use href="#i-slash"/></svg></span>
+          <span class="lbl">Sound</span>
+        </button>
+        <span class="dock-sep"></span>
+        <button id="flipBtn" class="dock-btn" disabled title="Switch front/back camera">
+          <span class="ico"><svg><use href="#i-flip"/></svg></span>
+          <span class="lbl">Switch</span>
+        </button>
+        <button id="torchBtn" class="dock-btn toggle-plain" disabled title="Torch">
+          <span class="ico"><svg><use href="#i-torch"/></svg></span>
+          <span class="lbl">Torch</span>
+        </button>
+        <span class="dock-sep"></span>
+        <button id="recordBtn" class="dock-btn rec-btn" disabled title="Start / stop recording (Shift+R)">
+          <span class="ico"><svg><use href="#i-rec"/></svg></span>
+          <span class="lbl">Record</span>
+        </button>
+        <span class="dock-sep"></span>
+        <button id="mirrorBtn" class="dock-btn toggle-plain" title="Mirror (M)">
+          <span class="ico"><svg><use href="#i-mirror"/></svg></span>
+          <span class="lbl">Mirror</span>
+        </button>
+        <button id="rotateBtn" class="dock-btn" title="Rotate 90° (O)">
+          <span class="ico"><svg><use href="#i-rotate"/></svg></span>
+          <span class="lbl">Rotate</span>
+        </button>
+        <button id="fullBtn" class="dock-btn" title="Fullscreen (F)">
+          <span class="ico"><svg><use href="#i-full"/></svg></span>
+          <span class="lbl">Full</span>
+        </button>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <nav class="tabs" role="tablist">
+        <button class="tab" data-tab="camera" role="tab"><svg class="ico-sm"><use href="#i-sliders"/></svg>Camera</button>
+        <button class="tab app-only" data-tab="notifs" role="tab" hidden><svg class="ico-sm"><use href="#i-bell"/></svg>Alerts<span id="notifCount" class="count"></span></button>
+        <button class="tab" data-tab="record" role="tab"><svg class="ico-sm"><use href="#i-rec"/></svg>Record</button>
+        <button class="tab" data-tab="pair" role="tab"><svg class="ico-sm"><use href="#i-qr"/></svg>Pair</button>
+      </nav>
+
+      <!-- Camera -->
+      <section class="pane" data-pane="camera">
+        <div class="group">
+          <h3>Quality</h3>
+          <div class="field-grid">
+            <label>Resolution
+              <select id="resSel" disabled>
+                <option value="640x480">480p</option>
+                <option value="1280x720">720p</option>
+                <option value="1920x1080">1080p</option>
+              </select>
+            </label>
+            <label>Frame rate
+              <select id="fpsSel" disabled>
+                <option value="15">15 fps</option>
+                <option value="24">24 fps</option>
+                <option value="30">30 fps</option>
+                <option value="60">60 fps</option>
+              </select>
+            </label>
+            <label>Bitrate
+              <select id="rateSel" disabled>
+                <option value="1500000">Low · 1.5 Mbps</option>
+                <option value="4000000">Medium · 4 Mbps</option>
+                <option value="8000000">High · 8 Mbps</option>
+              </select>
+            </label>
+            <label class="app-only" hidden>Orientation
+              <select id="orientSel" disabled>
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <div class="group browser-only">
+          <h3>Phone screen</h3>
+          <div class="row-between">
+            <p class="muted">Turns the phone display black to save battery. The camera keeps streaming.</p>
+            <button id="blackBtn" class="btn" disabled>Black screen: off</button>
+          </div>
+        </div>
+
+        <div class="group app-only" hidden>
+          <h3>Android app</h3>
+          <p class="muted">Keeps streaming with the phone locked and the screen off. <b>Camera</b> in the bar below the video turns the phone camera off to save battery; the phone stays paired.</p>
+        </div>
+
+        <div class="group">
+          <h3>Connection</h3>
+          <p id="stats2" class="muted mono">—</p>
+        </div>
+      </section>
+
+      <!-- Notifications -->
+      <section id="notifCard" class="pane" data-pane="notifs">
+        <div class="row-between">
+          <p id="notifStatus" class="muted"></p>
+          <button id="notifBtn" class="btn on">On</button>
+        </div>
+        <div id="notifList" class="notif-list"></div>
+      </section>
+
+      <!-- Recording -->
+      <section class="pane" data-pane="record">
+        <div class="group">
+          <h3>Recording</h3>
+          <p id="recStatus" class="muted">Saved on this PC. Needs the Android app.</p>
+          <div class="row">
+            <button id="recordBtn2" class="btn primary" disabled>Start recording</button>
+            <button id="folderBtn" class="btn"><svg class="ico-sm"><use href="#i-folder"/></svg>Open folder</button>
+          </div>
+          <p class="muted small">MP4 files on this PC. Recording runs on the server, so it continues if you close this tab.</p>
+        </div>
+      </section>
+
+      <!-- Pairing & security -->
+      <section class="pane" data-pane="pair">
+        <div id="pairing" class="group">
+          <h3>Pair a phone</h3>
+          <p class="muted">Scan with the LAN Camera app (or the phone camera for the browser page). The code contains a secret key; don't share it.</p>
+          <div id="qrList" class="qr-list"></div>
+          <p class="muted">Or type this code on the phone:</p>
+          <p id="code" class="code">—</p>
+        </div>
+        <div id="pairedNote" class="group" hidden>
+          <h3>Phone connected</h3>
+          <p class="muted">Pairing is hidden while a phone is connected. Disconnect it to pair another one.</p>
+        </div>
+        <div class="group">
+          <h3>Security</h3>
+          <div class="row">
+            <button id="kickBtn" class="btn danger" disabled>Disconnect phone</button>
+            <button id="rotateKeyBtn" class="btn">New key</button>
+            <button id="lockBtn" class="btn">Lock pairing</button>
+          </div>
+          <p class="muted small"><b>New key</b> disconnects the phone and makes old QR codes useless. <b>Lock</b> lets only the last paired phone reconnect. The key also changes when the server restarts.</p>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="/viewer.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- No plain HTTP. Trust system CAs plus user-installed CAs (the LAN Camera
+     CA you installed on the phone). When paired by QR code, the app also pins
+     the exact PC certificate fingerprint (see Tls.kt). -->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+</network-security-config>

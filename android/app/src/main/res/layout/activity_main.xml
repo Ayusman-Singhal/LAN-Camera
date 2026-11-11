@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:clipToPadding="false"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="28dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingTop="12dp">
+
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:text="@string/app_name"
+                android:textColor="@color/text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/localChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/chip_bg"
+                android:drawablePadding="6dp"
+                android:paddingStart="10dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="5dp"
+                android:text="@string/local_only"
+                android:textColor="@color/muted"
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_lock_small"
+                app:drawableTint="@color/muted" />
+        </LinearLayout>
+
+        <!-- Power button with status ring -->
+        <FrameLayout
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp">
+
+            <View
+                android:id="@+id/statusRing"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/status_ring" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/startBtn"
+                style="@style/PowerButton"
+                android:layout_width="184dp"
+                android:layout_height="184dp"
+                android:layout_gravity="center"
+                android:contentDescription="@string/start"
+                android:text="@string/start_short"
+                app:icon="@drawable/ic_power" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/statusText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/text"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/detailText"
+            style="@style/Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_horizontal"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp" />
+
+        <TextView
+            android:id="@+id/lockHint"
+            style="@style/HintChip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="14dp"
+            android:text="@string/lock_hint"
+            android:visibility="gone" />
+
+        <!-- Setup list -->
+        <TextView
+            style="@style/CardTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/setup_title" />
+
+        <com.google.android.material.card.MaterialCardView
+            style="@style/ListCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Your PC -->
+                <LinearLayout
+                    android:id="@+id/scanBtn"
+                    style="@style/Row">
+
+                    <ImageView style="@style/RowIcon" android:src="@drawable/ic_pc" android:contentDescription="@null" />
+
+                    <LinearLayout style="@style/RowTexts">
+                        <TextView android:id="@+id/pairedText" style="@style/RowTitle" />
+                        <TextView android:id="@+id/pinnedText" style="@style/RowSub" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/scanAction"
+                        style="@style/RowAction"
+                        android:text="@string/scan_short"
+                        app:drawableStartCompat="@drawable/ic_qr"
+                        app:drawableTint="@color/accent" />
+                </LinearLayout>
+
+                <View style="@style/RowDivider" />
+
+                <!-- Pair with code -->
+                <LinearLayout
+                    android:id="@+id/manualBtn"
+                    style="@style/Row">
+
+                    <ImageView style="@style/RowIcon" android:src="@drawable/ic_keypad" android:contentDescription="@null" />
+
+                    <LinearLayout style="@style/RowTexts">
+                        <TextView style="@style/RowTitle" android:text="@string/manual" />
+                        <TextView style="@style/RowSub" android:text="@string/manual_sub" />
+                    </LinearLayout>
+
+                    <ImageView style="@style/RowChevron" android:contentDescription="@null" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/manualPanel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="16dp"
+                    android:visibility="gone">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/address_hint"
+                        app:helperText="@string/address_help">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/addressInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:importantForAutofill="no"
+                            android:inputType="textUri" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:hint="@string/code_hint">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/codeInput"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="monospace"
+                            android:importantForAutofill="no"
+                            android:inputType="textCapCharacters|textNoSuggestions"
+                            android:maxLength="9" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/connectManualBtn"
+                        style="@style/SoftButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/save" />
+                </LinearLayout>
+
+                <View style="@style/RowDivider" />
+
+                <!-- Notifications -->
+                <LinearLayout
+                    android:id="@+id/notifBtn"
+                    style="@style/Row">
+
+                    <ImageView style="@style/RowIcon" android:src="@drawable/ic_bell" android:contentDescription="@null" />
+
+                    <LinearLayout style="@style/RowTexts">
+                        <TextView style="@style/RowTitle" android:text="@string/notif_title" />
+                        <TextView android:id="@+id/notifText" style="@style/RowSub" />
+                        <TextView android:id="@+id/notifHint" style="@style/RowSub" android:text="@string/notif_restricted" />
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/notifState" style="@style/RowState" />
+                </LinearLayout>
+
+                <View style="@style/RowDivider" />
+
+                <!-- Background -->
+                <LinearLayout
+                    android:id="@+id/batteryBtn"
+                    style="@style/Row">
+
+                    <ImageView style="@style/RowIcon" android:src="@drawable/ic_battery" android:contentDescription="@null" />
+
+                    <LinearLayout style="@style/RowTexts">
+                        <TextView style="@style/RowTitle" android:text="@string/background_title" />
+                        <TextView android:id="@+id/batteryText" style="@style/RowSub" />
+                    </LinearLayout>
+
+                    <TextView android:id="@+id/batteryState" style="@style/RowState" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/forgetDivider"
+                    style="@style/RowDivider" />
+
+                <!-- Forget -->
+                <LinearLayout
+                    android:id="@+id/forgetBtn"
+                    style="@style/Row">
+
+                    <ImageView
+                        style="@style/RowIcon"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_trash"
+                        app:tint="@color/bad" />
+
+                    <TextView
+                        style="@style/RowTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/forget"
+                        android:textColor="@color/bad" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            style="@style/Small"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/privacy" />
+    </LinearLayout>
+</ScrollView>

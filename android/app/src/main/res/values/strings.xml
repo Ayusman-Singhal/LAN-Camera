@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LAN Camera</string>
+    <string name="tagline">Private camera for your PC</string>
+    <string name="start">Start camera</string>
+    <string name="stop">Stop camera</string>
+    <string name="start_short">Start</string>
+    <string name="stop_short">Stop</string>
+    <string name="lock_hint">You can lock the phone now</string>
+    <string name="local_only">Local only</string>
+    <string name="setup_title">Setup</string>
+    <string name="pc_title">Your PC</string>
+    <string name="not_paired">Not paired yet</string>
+    <string name="not_paired_help">Open the PC viewer and scan its QR code</string>
+    <string name="pinned">Only this PC is trusted</string>
+    <string name="not_pinned">Trusted via the installed certificate</string>
+    <string name="scan">Scan QR code</string>
+    <string name="scan_short">Scan</string>
+    <string name="manual">Pair with a code</string>
+    <string name="manual_sub">Type the PC address and the 8-character code</string>
+    <string name="address_hint">PC address</string>
+    <string name="address_help">Shown under the QR code, e.g. 192.168.1.5</string>
+    <string name="code_hint">8-character code</string>
+    <string name="save">Save</string>
+    <string name="forget">Forget this PC</string>
+    <string name="background_title">Background</string>
+    <string name="battery_ok">Allowed to run with the screen off</string>
+    <string name="battery_needed">Tap to allow, so Android keeps the camera running when locked</string>
+    <string name="battery_allow">Allow background use</string>
+    <string name="battery_more">Battery settings</string>
+    <string name="privacy">Video stays on your local network, encrypted, and goes only to your paired PC.</string>
+    <string name="scan_hint">Point at the QR code on the PC viewer</string>
+    <string name="cancel">Cancel</string>
+    <string name="notif_listener_label">LAN Camera: show notifications on PC</string>
+    <string name="notif_title">Notifications on PC</string>
+    <string name="notif_ok">Shown in the PC viewer while the app runs</string>
+    <string name="notif_needed">Tap to allow. See notifications on the PC without turning the screen on</string>
+    <string name="notif_allow">Allow notification access</string>
+    <string name="notif_settings">Notification access settings</string>
+    <string name="notif_restricted">If Android says \"Restricted setting\": App info, ⋮ menu, Allow restricted settings</string>
+    <string name="state_on">On</string>
+    <string name="state_off">Off</string>
+</resources>

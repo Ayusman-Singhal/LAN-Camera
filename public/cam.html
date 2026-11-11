@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <title>LAN Camera</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="cam">
+  <header class="bar">
+    <strong>LAN Camera</strong>
+    <span id="status" class="pill">Starting…</span>
+  </header>
+
+  <main>
+    <section id="pair" class="card" hidden>
+      <h2>Pair with PC</h2>
+      <p>Scan the QR code shown on your PC, or type the 8-character code shown under it.</p>
+      <form id="codeForm" autocomplete="off">
+        <input id="codeInput" inputmode="text" autocapitalize="characters" spellcheck="false"
+               maxlength="9" placeholder="XXXX-XXXX" aria-label="Pairing code">
+        <button type="submit" class="primary">Connect</button>
+      </form>
+    </section>
+
+    <section id="startCard" class="card" hidden>
+      <p>Ready. Tap start and allow camera access.</p>
+      <button id="startBtn" class="primary">Start camera</button>
+    </section>
+
+    <div id="previewWrap" class="preview" hidden>
+      <video id="preview" autoplay muted playsinline disableremoteplayback></video>
+    </div>
+
+    <section id="controls" class="controls" hidden>
+      <div class="row">
+        <button id="flipBtn">Switch camera</button>
+        <button id="torchBtn" hidden>Torch</button>
+      </div>
+      <div class="row">
+        <label>Resolution
+          <select id="resSel">
+            <option value="640x480">480p</option>
+            <option value="1280x720" selected>720p</option>
+            <option value="1920x1080">1080p</option>
+          </select>
+        </label>
+        <label>FPS
+          <select id="fpsSel">
+            <option value="15">15</option>
+            <option value="24">24</option>
+            <option value="30" selected>30</option>
+            <option value="60">60</option>
+          </select>
+        </label>
+        <label>Quality
+          <select id="rateSel">
+            <option value="1500000">Low</option>
+            <option value="4000000" selected>Medium</option>
+            <option value="8000000">High</option>
+          </select>
+        </label>
+      </div>
+      <div class="row">
+        <button id="stopBtn" class="danger">Stop</button>
+      </div>
+      <p class="hint">Keep this tab open and the phone unlocked. Turn the black screen on or off from the PC to save battery: the phone stays awake but shows nothing. Tap the black screen to see the status. Pressing the power button pauses the camera; it resumes when you unlock.</p>
+    </section>
+  </main>
+
+  <div id="black" class="black" hidden>
+    <div id="blackUi" class="black-ui" hidden>
+      <span id="blackStatus"></span>
+      <span>Black screen is controlled from the PC.</span>
+    </div>
+  </div>
+
+  <script src="/cam.js"></script>
+</body>
+</html>

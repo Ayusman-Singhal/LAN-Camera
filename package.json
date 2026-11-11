@@ -1,0 +1,41 @@
+{
+  "name": "lan-camera",
+  "version": "0.1.0",
+  "description": "Use an Android phone camera as a private live feed on your PC, over the local network only. No internet, no cloud.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "setup": "node setup.js",
+    "check": "node --check server.js && node --check setup.js && node --check lib/certs.js && node --check lib/net.js && node --check lib/media.js && node --check lib/mkv.js && node --check lib/recorder.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "camera",
+    "webcam",
+    "android",
+    "webrtc",
+    "local-network",
+    "lan",
+    "privacy",
+    "surveillance",
+    "self-hosted",
+    "websocket"
+  ],
+  "author": "LAN Camera contributors",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_USERNAME/lan-camera.git"
+  },
+  "bugs": {
+    "url": "https://github.com/YOUR_USERNAME/lan-camera/issues"
+  },
+  "homepage": "https://github.com/YOUR_USERNAME/lan-camera#readme",
+  "dependencies": {
+    "node-forge": "^1.4.3",
+    "qrcode": "^1.5.4",
+    "ws": "^8.22.1"
+  }
+}
