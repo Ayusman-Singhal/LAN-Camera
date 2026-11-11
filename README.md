@@ -5,6 +5,8 @@
 ![Platform](https://img.shields.io/badge/platform-Windows-blue)
 ![Privacy](https://img.shields.io/badge/cloud-none-success)
 
+<img src="media/social-preview.png" alt="LAN Camera — use an Android phone as a private wireless webcam for your PC" width="100%">
+
 Use your Android phone's camera as a live, private video feed on this PC,
 and record it on the PC. Works over your local network only: no internet, no
 cloud, no mobile data needed. The PC side is a small Node server plus a

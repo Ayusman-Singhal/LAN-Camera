@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1280px; height: 640px; overflow: hidden; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: radial-gradient(1100px 700px at 18% -10%, #1a2233 0%, #0b0e14 55%, #07090d 100%);
+    color: #e8ecf4;
+    display: flex;
+    align-items: center;
+  }
+  .wrap { display: flex; width: 1280px; padding: 0 64px; gap: 56px; align-items: center; }
+
+  /* ---------- left: text ---------- */
+  .left { flex: 1.15; }
+  .logo-row { display: flex; align-items: center; gap: 16px; margin-bottom: 26px; }
+  .logo {
+    width: 56px; height: 56px; border-radius: 14px;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 30px; box-shadow: 0 8px 30px rgba(59,130,246,.35);
+  }
+  .brand { font-size: 40px; font-weight: 700; letter-spacing: -0.5px; }
+  h1 { font-size: 46px; line-height: 1.14; letter-spacing: -1px; font-weight: 750; }
+  h1 .hl { color: #60a5fa; }
+  .tagline { margin-top: 18px; font-size: 21px; color: #9aa7bd; line-height: 1.5; max-width: 560px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .chip {
+    display: flex; align-items: center; gap: 9px;
+    background: rgba(59,130,246,.09); border: 1px solid rgba(96,165,250,.25);
+    color: #bcd3f7; padding: 9px 18px; border-radius: 999px; font-size: 16.5px; font-weight: 600;
+  }
+  .chip .dot { width: 9px; height: 9px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px #22c55e; }
+  .chip.blue .dot { background: #60a5fa; box-shadow: 0 0 10px #60a5fa; }
+  .url { margin-top: 34px; color: #64748b; font-size: 16px; font-family: Consolas, monospace; }
+
+  /* ---------- right: phone mockup ---------- */
+  .phone {
+    width: 252px; height: 520px; border-radius: 36px;
+    background: #05070b;
+    border: 3px solid #26304a;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04) inset;
+    overflow: hidden; position: relative; flex-shrink: 0;
+  }
+  .feed {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(340px 260px at 70% 30%, rgba(59,130,246,.28), transparent 70%),
+      radial-gradient(300px 240px at 25% 75%, rgba(139,92,246,.22), transparent 70%),
+      linear-gradient(160deg, #141c2e 0%, #0a0f1a 60%, #060a12 100%);
+  }
+  .feed .cam-glyph {
+    position: absolute; top: 34%; left: 38%; transform: translate(-50%,-50%);
+    font-size: 62px; opacity: .9; filter: drop-shadow(0 6px 22px rgba(96,165,250,.55));
+  }
+  .live {
+    position: absolute; top: 18px; left: 18px;
+    background: rgba(239,68,68,.92); color: #fff; font-weight: 700; font-size: 13px;
+    letter-spacing: 1.2px; padding: 5px 12px; border-radius: 7px;
+    display: flex; align-items: center; gap: 7px;
+  }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #fff; }
+  .res {
+    position: absolute; top: 18px; right: 18px;
+    background: rgba(0,0,0,.55); color: #cbd5e1; font-size: 12.5px; font-weight: 600;
+    padding: 5px 10px; border-radius: 7px; font-family: Consolas, monospace;
+  }
+  .phone-bar {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 14px; background: rgba(10,14,22,.82);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 16px; padding: 10px 18px;
+  }
+  .phone-bar span { font-size: 17px; opacity: .9; }
+  .phone-bar span.rec { color: #ef4444; }
+  .speaker { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 74px; height: 5px; border-radius: 3px; background: #1e2740; }
+
+  /* ---------- QR card floating over phone ---------- */
+  .card {
+    position: absolute; right: 96px; bottom: 64px;
+    background: rgba(15,20,31,.94); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 18px; padding: 18px 20px; width: 240px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.55); backdrop-filter: blur(4px);
+  }
+  .card .qr { width: 132px; height: 132px; background: #fff; border-radius: 10px; padding: 8px; margin: 0 auto; }
+  .card .qr img { width: 100%; height: 100%; display: block; }
+  .card .code { text-align: center; margin-top: 12px; font-family: Consolas, monospace; font-size: 23px; font-weight: 700; letter-spacing: 2px; color: #e2e8f0; }
+  .card .lbl { text-align: center; font-size: 12.5px; color: #7c8aa5; margin-top: 4px; letter-spacing: .4px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="left">
+      <div class="logo-row">
+        <div class="logo">&#128247;</div>
+        <div class="brand">LAN Camera</div>
+      </div>
+      <h1>Your Android phone is<br>the webcam. <span class="hl">Your Wi-Fi<br>is the only wire.</span></h1>
+      <div class="tagline">Live video feed + recording on your PC, straight from your phone camera &mdash; with the screen locked. Nothing ever leaves your network.</div>
+      <div class="chips">
+        <div class="chip"><span class="dot"></span>No cloud</div>
+        <div class="chip"><span class="dot"></span>No internet</div>
+        <div class="chip blue"><span class="dot"></span>Works screen-off</div>
+        <div class="chip blue"><span class="dot"></span>Records MP4</div>
+      </div>
+      <div class="url">github.com/Ayusman-Singhal/LAN-Camera</div>
+    </div>
+
+    <div style="position:relative; width:340px; display:flex; justify-content:center;">
+      <div class="phone">
+        <div class="feed">
+          <div class="speaker"></div>
+          <div class="cam-glyph">&#128249;</div>
+          <div class="live"><i></i>LIVE</div>
+          <div class="res">1920&times;1080 &middot; 30fps</div>
+        </div>
+        <div class="phone-bar"><span>&#128247;</span><span>&#128260;</span><span>&#9889;</span><span class="rec">&#9679;</span><span>&#128266;</span></div>
+      </div>
+      <div class="card">
+        <div class="qr"><img src="qr-demo.png"></div>
+        <div class="code">K7PQ-M2WD</div>
+        <div class="lbl">Scan to pair &mdash; local only</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
